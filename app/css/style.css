@@ -1,0 +1,123 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Oct 16, 2015, 9:55:49 AM
+    Author     : Userman
+*/
+/*.grid {
+    width: 100%;
+    height: 700px;
+}*/
+.nav, .pagination, .carousel, .panel-title a {
+    cursor: pointer;
+}
+
+.view-button {
+    width: 100%;
+}
+
+.client-details {
+    text-align: center;
+    background-color: #9e9e9e;
+}
+
+.client-details-container {
+    background-color: #eeeeee;
+    /*background-color: #f5f5f5;*/
+}
+
+.clientID {
+    /*color: #00e676;*/
+    color: #FFF;
+}
+
+.tab {
+    margin-left: 10px;
+}
+
+.ui-grid-cell.interesting {
+    /*background-color: #aed581 !important ;*/
+    background-color: #81d4fa !important;
+    color: #000 !important;
+}
+
+.ui-grid-cell.task-placed {
+    background-color: #ffd54f !important;
+    color: #000 !important;
+}
+
+.ui-grid-cell.installed {
+    background-color: #aed581 !important;
+    color: #000 !important;
+}
+
+.interesting-header {
+    /*color: #aed581;*/
+    margin-left: 15px;
+    margin-bottom: 10px;
+    /*background-color: #aed581 !important ;*/
+    border: solid 0.5px;
+}
+
+.date {
+    font-size: 17px;
+    margin-top: 5px;
+}
+
+.selector {
+    display: none;
+}
+
+.date-button {
+    margin-top: 10px;
+}
+
+.user-btns {
+    margin-top: 23px;
+}
+
+.filters {
+    float: left;
+    /*position: fixed;*/
+    /*top: 70px;*/
+    /*left: 25px;*/
+    /*border: solid #cfd8dc;*/
+    margin-top: 70px;
+    margin-left: 35px;
+    padding: 10px;
+    background-color: #f3f3f3;
+}
+
+.filters-multiple{
+    float: left;
+    margin-left: 35px;
+    padding: 10px;
+    background-color: #f3f3f3;
+}
+
+.filters > h2 {
+    margin: auto;
+    text-align: center;
+}
+
+.btn-settings {
+    float: right;
+    font-size: 19px;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    padding: 0 0 0 1px;
+    line-height: 0;
+    border-radius: 15px;
+}
+
+@media only screen and (max-width: 1820px) {
+    .filters {
+        width: 300px;
+        margin-left: 15%;
+        /*width: 100%;*/
+    }
+}
