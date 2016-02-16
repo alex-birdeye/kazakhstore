@@ -1,8 +1,10 @@
 'use strict';
 /* Controllers */
 var phonecatControllers = angular.module('categoriesController', []);
+var editingcategory;
 
-phonecatControllers.controller('CategoriesCtrl', ['$scope', '$http', '$route', '$compile', 'uiGridConstants', '$rootScope', '$uibModal', function ($scope, $http, $route, $uibModal, $compile, uiGridConstants, $rootScope) {
+phonecatControllers.controller('CategoriesCtrl', ['$scope', '$http', '$route', 'uiGridConstants', '$rootScope', '$uibModal', function ($scope, $http, $route, $uibModal, uiGridConstants, $rootScope) {
+    //$route.reload();
     refresh();
     function refresh() {
         $http.get('/categories').success(function (response) {
@@ -10,12 +12,31 @@ phonecatControllers.controller('CategoriesCtrl', ['$scope', '$http', '$route', '
         });
 
         $scope.showModal = false;
-        $scope.add = function () {
-            $scope.showModal = !$scope.showModal;
-        };
+        $scope.showModalEdit = false;
+        //$scope.oldcategory = '';
+        //$scope.newcategory = '';
+
     }
-    $scope.$on('refresh', function(event, args){
+
+    $scope.add = function () {
+        $scope.showModal = !$scope.showModal;
+    };
+    $scope.edit = function (oldcategory) {
+        $scope.oldcategory = oldcategory;
+        $scope.newcategory = oldcategory;
+        console.log('catctrl: newcat = ' + $scope.newcategory);
+        $scope.showModalEdit = !$scope.showModalEdit;
+    };
+    $scope.delete = function (category) {
+        $http.delete('/categories/' + category).success(function (response) {
+            refresh();
+        });
+    };
+
+    $scope.$on('refresh', function (event, args) {
+        //$route.reload();
         refresh();
+        //location.reload();
     });
 }]);
 

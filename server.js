@@ -11,35 +11,16 @@ app.use(function (req, res, next) {
     next();
 });
 
-app.put('/api/users/:fname/:lname/:uname/:pass', function (req, res) {
-    var fname = req.params.fname;
-    var lname = req.params.lname;
-    var uname = req.params.uname;
-    var pass = req.params.pass;
+app.put('/categories/:old/:newcat', function (req, res) {
+    var old = req.params.old;
+    var newcat = req.params.newcat;
 
-    //console.log(fname);
-    //console.log(lname);
-    //console.log(uname);
-    //console.log(pass);
 
-    //var jstr = '{' + '"firstName":"' + fname + '", "lastName":"' + lname + '", "username":"' + uname + '", "password":"' + pass + '"' + '}';
-    var jstr = '{';
-    if (fname !== null && fname !== 'undefined' && fname.length !== 0) {
-        jstr += '"firstName":"' + fname + '", ';
-    }
-    if (lname !== null && lname !== 'undefined' && lname.length !== 0) {
-        jstr += '"lastName":"' + lname + '", ';
-    }
-    if (pass !== null && pass !== 'undefined' && pass.length !== 0) {
-        jstr += '"password":"' + pass + '", ';
-    }
-    jstr += '}';
-    jstr = jstr.replace('", }', '"}');
-    console.log(jstr);
-    var updF = JSON.parse(jstr);
-    db.users.findAndModify({query: {username: uname}, update: {$set: updF}}, function (err, docs) {
-        res.send('ok');
+    db.categories.update({name: old}, {$set: {name: newcat}}, function (req, res) {
+        console.log('category ' + old);
+        console.log('updated to ' + newcat);
     });
+    res.send(200);
 });
 
 app.get('/categories', function (req, res) {
@@ -50,12 +31,13 @@ app.get('/categories', function (req, res) {
 
 app.delete('/categories/:category', function (req, res) {
     var category = req.params.category;
-    db.categories.update({}, {$pull: {categories: {$in: [category]}}}, {multi: true}, function (err, docs) {
+    db.categories.remove({name: category}, function (err, docs) {
         console.log(category + ' deleted')
     });
-    db.keywords.find(function (err, docs) {
-        res.json(docs);
-    });
+    //db.categories.find(function (err, docs) {
+    //    res.json(docs);
+    //});
+    res.send(200);
 });
 
 app.post('/categories/:category', function (req, res) {
