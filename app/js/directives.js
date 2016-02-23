@@ -11,12 +11,12 @@ phonecatDirectives.directive('modal', function () {
         replace: true,
         scope: true,
         controller: ['$scope', '$http', function ($scope, $http) {
-            $scope.addCategory = function (category) {
-                $http.post('/categories/' + category).success(function (response) {
-                    $scope.kategories = response[0].keywords;
-                    $scope.$emit('refresh', 0);
-                });
-            };
+            //$scope.addCategory = function (category) {
+            //    $http.post('/categories/' + category).success(function (response) {
+            //        $scope.kategories = response[0].keywords;
+            //        $scope.$emit('refresh', 0);
+            //    });
+            //};
         }],
         link: function postLink(scope, element, attrs) {
             scope.title = attrs.title;
@@ -45,19 +45,21 @@ phonecatDirectives.directive('modal', function () {
 
 phonecatDirectives.directive('modaledit', function () {
     return {
-        templateUrl: 'partials/editcategory.html',
+        templateUrl: 'partials/editSubCategory.html',
         restrict: 'E',
         transclude: true,
         replace: true,
         scope: true,
-        controller: ['$scope', '$http', '$route', function ($scope, $http, $route) {
+        controller: ['$scope', '$http', 'CategoryService', '$route', function ($scope, $http, CategoryService, $route) {
             console.log('modedit: newcat = ' + $scope.newcategory);
-            $scope.updCategory = function (newcategory) {
-                $http.put('/categories/' + $scope.oldcategory + '/' + newcategory).success(function (response) {
-                    //$scope.$emit('refresh', 0);
-                    location.reload();
-                });
-            };
+            //$scope.newcategory = CategoryService.GetCat();
+            //$scope.updCategory = function (newcategory) {
+            //    $http.put('/categories/' + CategoryService.GetCat() + '/' + newcategory).success(function (response) {
+            //        //$scope.$emit('refresh', 0);
+            //        location.reload();
+            //    });
+            //    //$route.reload();
+            //};
         }],
         link: function postLink(scope, element, attrs) {
             scope.title = attrs.title;

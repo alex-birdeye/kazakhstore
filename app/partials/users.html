@@ -1,24 +1,25 @@
-<div class="container">
+<div class="container" ng-controller="CategoriesCtrl">
     <h1>Users</h1>
-    <div class="row user" ng-repeat="user in users">
-        <div class="col-md-2">
-            <label>First name</label>
-            <input type="text" placeholder={{user.firstName}} ng-model="fname">
-        </div><div class="col-md-2">
-            <label>Last name</label>
-            <input type="text" placeholder={{user.lastName}} ng-model="lname">
-        </div><div class="col-md-2">
-            <label>Username</label>
-            <input type="text" placeholder={{user.username}} ng-model="uname">
-        </div><div class="col-md-2">
-            <label>Password</label>
-            <input type="text" placeholder={{user.password}} ng-model="pass">
-        </div>
-        <div class="col-md-2 user-btns">
-            <button class="btn-primary" ng-click="update(fname, lname, user.username, pass)">Save</button>
-            <button class="btn-danger" ng-click="delete(user.username)">Delete</button>
-        </div>
-    </div>
+    <!--<div class="row user" ng-repeat="user in users">-->
+        <!--<div class="col-md-2">-->
+            <!--<label>First name</label>-->
+            <!--<input type="text" placeholder={{user.firstName}} ng-model="fname">-->
+        <!--</div><div class="col-md-2">-->
+            <!--<label>Last name</label>-->
+            <!--<input type="text" placeholder={{user.lastName}} ng-model="lname">-->
+        <!--</div><div class="col-md-2">-->
+            <!--<label>Username</label>-->
+            <!--<input type="text" placeholder={{user.username}} ng-model="uname">-->
+        <!--</div><div class="col-md-2">-->
+            <!--<label>Password</label>-->
+            <!--<input type="text" placeholder={{user.password}} ng-model="pass">-->
+        <!--</div>-->
+        <!--<div class="col-md-2 user-btns">-->
+            <!--<button class="btn-primary" ng-click="update(fname, lname, user.username, pass)">Save</button>-->
+            <!--<button class="btn-danger" ng-click="delete(user.username)">Delete</button>-->
+        <!--</div>-->
+    <!--</div>-->
     <br>
-    <button class="btn-primary" ng-click="add()">New user</button>
+    <button class="btn-primary" ng-click="openM()">New user</button>
+    <button ng-click="ok()">close</button>
 </div>

@@ -7,20 +7,20 @@ var app = angular.module('app', [
     'ngRoute',
     'ngResource',
     'categoriesController',
-    'userController',
+    'subCategoriesController',
     'appDirectives',
     'appServices',
     'appFilters',
-    'ui.grid',
-    'ui.grid.resizeColumns',
+    'addSubCategoriesController',
+    'editSubCategoriesController',
     'ui.grid.pagination',
     'ui.grid.autoResize',
     'ui.grid.selection',
     'ui.bootstrap',
     'ui.date',
     'ngCookies',
-    'limit',
-    'infinite-scroll'
+    'addCategoriesController',
+    'editCategoriesController'
 ]);
 
 app.config(['$routeProvider',
@@ -33,6 +33,14 @@ app.config(['$routeProvider',
             when('/categories', {
                 templateUrl: 'partials/categories.html',
                 controller: 'CategoriesCtrl'
+            })
+            .when('/categories/:catorsubcat/', {
+                templateUrl: 'partials/categories.html',
+                controller: 'CategoriesCtrl'
+            })
+            .when('/categories/:catorsubcat/:catname', {
+                templateUrl: 'partials/categories.html',
+                controller: 'SubCategoriesCtrl'
             })
             .otherwise('/');
     }]);

@@ -28,6 +28,14 @@ app.get('/categories', function (req, res) {
         res.json(docs);
     });
 });
+app.get('/categories/:category', function (req, res) {
+    var category = req.params.category;
+    //console.log(category);
+    db.categories.find({name: category},function (err, docs) {
+        console.log(docs);
+        res.json(docs);
+    });
+});
 
 app.delete('/categories/:category', function (req, res) {
     var category = req.params.category;
@@ -48,6 +56,43 @@ app.post('/categories/:category', function (req, res) {
     db.categories.find(function (err, docs) {
         res.json(docs);
     });
+});
+
+app.post('/subcategories/:category/:subcategory', function (req, res) {
+    var category = req.params.category;
+    var subcategory = req.params.subcategory;
+    db.categories.update({name: category}, {$push: {subcategories: subcategory}}, function (err, docs) {
+        console.log(category + ' category added subcat: ' +subcategory );
+        res.send(200);
+    });
+    //db.categories.find({name: category}, function (err, docs) {
+    //    res.json(docs);
+    //});
+});
+
+app.delete('/subcategories/:category/:subcategory', function (req, res) {
+    var category = req.params.category;
+    var subcategory = req.params.subcategory;
+    db.categories.update({name: category}, {$pull: {subcategories: subcategory}}, function (err, docs) {
+        console.log(category + ' category deleted subcat: ' +subcategory );
+        res.send(200);
+    });
+    //db.categories.find({name: category}, function (err, docs) {
+    //    res.json(docs);
+    //});
+});
+
+app.put('/subcategories/:category/:oldsubcategory/:newsubcategory', function (req, res) {
+    var category = req.params.category;
+    var oldsubcategory = req.params.oldsubcategory;
+    var newsubcategory = req.params.newsubcategory;
+    db.categories.update({name: category, subcategories: oldsubcategory}, {$set: {"subcategories.$": newsubcategory}}, function (err, docs) {
+        console.log(category + ' category updated subcat: ' + oldsubcategory + ' to ' + newsubcategory );
+        res.send(200);
+    });
+    //db.categories.find({name: category}, function (err, docs) {
+    //    res.json(docs);
+    //});
 });
 
 app.get('/api/users', function (req, res) {

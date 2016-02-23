@@ -1,0 +1,25 @@
+<!--<div class="container" ng-controller="editCatCtrl">-->
+<div class="container">
+    <h3 style="margin-bottom: 20px;"><u>Изменить категорию</u></h3>
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <!--<h3 class="modal-title">{{ title }}</h3>-->
+    <h4>Имя категории: </h4>
+
+    <div class="row">
+        <div class="col-md-6">
+            <input class="form-control" ng-model="newcategory" style="width: 100%;">
+        </div>
+    </div>
+    <!--<br>-->
+    <!--<button class="btn btn-primary" ng-click="updCategory(newcategory)" data-dismiss="modal">Edit</button>-->
+    <!--<button class="btn btn-primary" data-dismiss="modal" ng-click="updCategory(newcategory)">Edit</button>-->
+    <div class="row">
+        <div class="col-md-1">
+            <a href="" class="btn btn-primary" style="margin-top: 10px; margin-bottom: 10px;"
+               ng-click="updCategory(newcategory)">Изменить</a>
+        </div>
+        <div class="col-md-1">
+            <button class="btn btn-default" ng-click="cancel()" style="margin-top: 10px; margin-bottom: 10px;">Отмена</button>
+        </div>
+    </div>
+</div>

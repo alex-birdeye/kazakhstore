@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html ng-app="app">
 <head>
-    <title>KazakhStore</title>
+    <title>Система управления товарами</title>
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="bower_components/jquery-ui/themes/smoothness/jquery-ui.css">
@@ -12,10 +12,10 @@
 <nav class="navbar navbar-default navbar-inverse">
     <div class="container-fluid">
         <div class="navbar-header">
-            <a class="navbar-brand" href="#">KazakhStore</a>
+            <a class="navbar-brand" href="#">Система управления товарами</a>
         </div>
         <ul class="nav navbar-nav">
-            <li class="active"><a href="#/categories">Categories</a></li>
+            <li class="active"><a href="#/categories/catTemplate">Категории</a></li>
         </ul>
     </div>
 </nav>
@@ -39,6 +39,11 @@
 <script src="js/services.js"></script>
 <script src="js/scroll.js"></script>
 <script src="js/controllers/categoriesCtrl.js"></script>
+<script src="js/controllers/subCategoriesCtrl.js"></script>
+<script src="js/controllers/editCatCtrl.js"></script>
+<script src="js/controllers/editSubCatCtrl.js"></script>
+<script src="js/controllers/addCatCtrl.js"></script>
+<script src="js/controllers/addSubCatCtrl.js"></script>
 <script src="js/controllers/user.js"></script>
 </body>
 </html>

@@ -1,0 +1,33 @@
+<h1 style="text-align: center">Подкатегории {{currCat.name}}</h1>
+<div class="col-md-offset-2">
+    <a href="#/categories/catTemplate"><img src="img/w64h641341505941arrowup64.png" style="margin: 10px;width: 32px; height: 32px"></a>
+</div>
+<div class="row" ng-controller="editSubCatCtrl">
+    <div class="col-md-8 col-md-offset-2">
+        <table class="table table-striped table-hover">
+            <tbody>
+            <tr ng-repeat="subcategory in currCat.subcategories">
+                <td align="left" style="vertical-align:middle;"><strong>{{subcategory}}</strong></td>
+                <td style="vertical-align:middle;">
+                    <!--<button class="btn btn-primary" ng-click="edit(category.name)">Edit</button>-->
+                    <a href="" ng-click="openM(currCat, subcategory)">Изменить</a>
+                </td>
+                <td style="vertical-align:middle;">
+                    <!--<button class="btn btn-danger" ng-click="delete(category.name)">Delete</button>-->
+                    <a href="" ng-click="delete(subcategory)">Удалить</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="row" ng-controller="addSubCatCtrl">
+    <div class="col-md-1 col-md-offset-2">
+        <button class="btn btn-primary" ng-click="addSubCat(currCat)">Добавить подкатегорию</button>
+    </div>
+</div>
+<!--<modal title="New category" visible="showModal">-->
+<!--</modal>-->
+<!--<modaledit title="Edit category" visible="showModalEdit">-->
+<!--</modaledit>-->

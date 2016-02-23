@@ -1,21 +1,18 @@
 'use strict';
 /* Controllers */
-var phonecatControllers = angular.module('categoriesController', ['appServices', 'ui.bootstrap']);
+var phonecatControllers = angular.module('subCategoriesController', ['appServices', 'ui.bootstrap']);
 var editingcategory;
 
-phonecatControllers.controller('CategoriesCtrl', ['$scope', '$http', '$route', 'CategoryService', '$routeParams', function ($scope, $http, $route, CategoryService, $routeParams, $modalInstance) {
+phonecatControllers.controller('SubCategoriesCtrl', ['$scope', '$http', '$route', 'CategoryService', '$routeParams', function ($scope, $http, $route, CategoryService, $routeParams, $modalInstance) {
     //$route.reload();
     refresh();
     function refresh() {
-        $http.get('/categories').success(function (response) {
-            $scope.categories = response;
+        var category = $routeParams.catname;
+        $http.get('/categories/' + category).success(function (response) {
+            console.log(response[0]);
+            $scope.currCat = response[0];
+            $scope.catTemplate = "partials/subCatTemplate.html";
         });
-
-        $scope.showModal = false;
-        $scope.showModalEdit = false;
-        //$scope.oldcategory = '';
-        //$scope.newcategory = '';
-
     }
 
     $scope.add = function () {
@@ -30,8 +27,8 @@ phonecatControllers.controller('CategoriesCtrl', ['$scope', '$http', '$route', '
         //$scope.newcategory = CategoryService.GetCat();
         //$scope.showModalEdit = !$scope.showModalEdit;
     };
-    $scope.delete = function (category) {
-        $http.delete('/categories/' + category).success(function (response) {
+    $scope.delete = function (subcategory) {
+        $http.delete('/subcategories/' + $scope.currCat.name + '/' + subcategory).success(function (response) {
             refresh();
         });
     };
@@ -44,7 +41,7 @@ phonecatControllers.controller('CategoriesCtrl', ['$scope', '$http', '$route', '
 
     //var lastView = CategoryService.getLastView();
     //if (lastView == null || lastView == 'cat')
-    $scope.catTemplate = "partials/" + $routeParams.catorsubcat + ".html";
+    //$scope.catTemplate = "partials/" + $routeParams.catorsubcat + ".html";
     //$scope.openSubCat = function (category) {
     //    //CategoryService.SetCat(category);
     //    $http.get('/categories/' + category.name).success(function (response) {
@@ -54,10 +51,10 @@ phonecatControllers.controller('CategoriesCtrl', ['$scope', '$http', '$route', '
     //    });
     //}
 
-    $scope.backToCat = function () {
-        CategoryService.setLastView('cat');
-        $scope.catTemplate = "partials/catTemplate.html";
-    }
+    //$scope.backToCat = function () {
+        //CategoryService.setLastView('cat');
+        //$scope.catTemplate = "partials/catTemplate.html";
+    //}
 
 
     //$scope.closeM = function(){
