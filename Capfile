@@ -1,6 +1,5 @@
 # Load DSL and Setup Up Stages
 require 'capistrano/setup'
-require 'capistrano-npm'
 
 # Includes default deployment tasks
 require 'capistrano/deploy'
