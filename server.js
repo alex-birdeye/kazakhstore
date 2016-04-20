@@ -3,6 +3,29 @@ var app = express();
 var mongojs = require('mongojs');
 //var db = mongojs('kazakhstore', ['clientM8Bid', 'extendedClients', 'countries', 'users', 'keywords', 'androclients', 'applications', 'statistics', 'statisticsAndro']);
 var db = mongojs('kazakhstore', ['categories']);
+var winston = require('winston');
+var logger = new (winston.Logger)({
+    transports: [
+        new (winston.transports.Console)({
+            name: 'info-console',
+            level: 'info'
+        }),
+        new (winston.transports.Console)({
+            name: 'error-console',
+            level: 'error'
+        }),
+        new (winston.transports.File)({
+            name: 'info-file',
+            filename: 'log/info.log',
+            level: 'info'
+        }),
+        new (winston.transports.File)({
+            name: 'error-file',
+            filename: 'log/error.log',
+            level: 'error'
+        })
+    ]
+});
 
 
 app.use(express.static(__dirname + "/app"));
@@ -163,4 +186,4 @@ app.post('/api/users', function (req, res) {
 
 
 app.listen(3030);
-console.log("Server started on port 3030");
+logger.info("Server started on port 3030");

@@ -6,7 +6,7 @@
             <tr ng-repeat="category in categories">
                 <a href="">
                     <td align="left" style="vertical-align:middle;" ng-click="openSubCat(category)">
-                        <a href="#/categories/subCatTemplate/{{category.name}}" style="color: #000000;"> <strong>{{category.name}}</strong></a>
+                        <a href="#/categories/subCatTemplate/{{category.name}}" style="color: #000000;"> <strong>{{category.name}} ({{category.subcategories.length}})</strong></a>
                     </td>
                 </a>
                 <td style="vertical-align:middle;">
