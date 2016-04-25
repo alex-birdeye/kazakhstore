@@ -39,45 +39,76 @@ app.put('/categories/:old/:newcat', function (req, res) {
     var newcat = req.params.newcat;
 
 
-    db.categories.update({name: old}, {$set: {name: newcat}}, function (req, res) {
-        console.log('category ' + old);
-        console.log('updated to ' + newcat);
+    db.categories.update({name: old}, {$set: {name: newcat}}, function (err, docs) {
+        //console.log('category ' + old);
+        //console.log('updated to ' + newcat);
+        if (err)
+            logger.error('category ' + old + ' failed to updated to ' + newcat + '. Error: "' + err + '"');
+        else {
+            logger.info('category ' + old + ' updated to ' + newcat);
+            res.send(200);
+        }
     });
-    res.send(200);
 });
 
 app.get('/categories', function (req, res) {
     db.categories.find(function (err, docs) {
-        res.json(docs);
+        if (err) {
+            logger.error('Can\'t GET /categories. Error: ' + err);
+            res.json([]);
+        } else {
+            res.json(docs);
+        }
     });
 });
 app.get('/categories/:category', function (req, res) {
     var category = req.params.category;
     //console.log(category);
-    db.categories.find({name: category},function (err, docs) {
-        console.log(docs);
-        res.json(docs);
+    db.categories.find({name: category}, function (err, docs) {
+        if (err) {
+            logger.error('Can\'t GET /categories/:category. Error: ' + err);
+            res.json([]);
+        } else {
+            res.json(docs);
+        }
     });
 });
 
 app.delete('/categories/:category', function (req, res) {
     var category = req.params.category;
     db.categories.remove({name: category}, function (err, docs) {
-        console.log(category + ' deleted')
+        //console.log(category + ' deleted')
+        if (err) {
+            logger.error('Can\'t DELETE category ' + category + '. Error: ' + err);
+        } else {
+            logger.info('Category ' + category + ' deleted.');
+            res.send(200);
+        }
     });
     //db.categories.find(function (err, docs) {
     //    res.json(docs);
     //});
-    res.send(200);
 });
 
 app.post('/categories/:category', function (req, res) {
     var category = req.params.category;
     db.categories.insert({name: category}, function (err, docs) {
-        console.log(category + ' inserted')
+        //console.log(category + ' inserted')
+        if (err) {
+            logger.error('Can\'t INSERT category ' + category + '. Error: ' + err);
+            //res.json([]);
+        } else {
+            logger.info('Category ' + category + ' inserted.');
+            //res.json(docs);
+        }
     });
     db.categories.find(function (err, docs) {
-        res.json(docs);
+        if (err) {
+            logger.error('Can\'t GET /categories after category insertion. Error: ' + err);
+            res.json([]);
+        } else {
+            res.json(docs);
+        }
     });
 });
 
@@ -85,8 +116,13 @@ app.post('/subcategories/:category/:subcategory', function (req, res) {
     var category = req.params.category;
     var subcategory = req.params.subcategory;
     db.categories.update({name: category}, {$push: {subcategories: subcategory}}, function (err, docs) {
-        console.log(category + ' category added subcat: ' +subcategory );
-        res.send(200);
+        if (err) {
+            logger.error('Can\'t ADD subcategory ' + subcategory + ' to category ' + category + '. Error: ' + err);
+            res.json([]);
+        } else {
+            logger.info('ADD subcategory ' + subcategory + ' to category ' + category);
+            res.send(200);
+        }
     });
     //db.categories.find({name: category}, function (err, docs) {
     //    res.json(docs);
@@ -97,8 +133,14 @@ app.delete('/subcategories/:category/:subcategory', function (req, res) {
     var category = req.params.category;
     var subcategory = req.params.subcategory;
     db.categories.update({name: category}, {$pull: {subcategories: subcategory}}, function (err, docs) {
-        console.log(category + ' category deleted subcat: ' +subcategory );
-        res.send(200);
+        //console.log(category + ' category deleted subcat: ' + subcategory);
+        if (err) {
+            logger.error('Can\'t DELETE subcategory ' + subcategory + ' from category ' + category + '. Error: ' + err);
+            res.json([]);
+        } else {
+            logger.info('DELETE subcategory ' + subcategory + ' from category ' + category);
+            res.send(200);
+        }
     });
     //db.categories.find({name: category}, function (err, docs) {
     //    res.json(docs);
@@ -109,9 +151,18 @@ app.put('/subcategories/:category/:oldsubcategory/:newsubcategory', function (re
     var category = req.params.category;
     var oldsubcategory = req.params.oldsubcategory;
     var newsubcategory = req.params.newsubcategory;
-    db.categories.update({name: category, subcategories: oldsubcategory}, {$set: {"subcategories.$": newsubcategory}}, function (err, docs) {
-        console.log(category + ' category updated subcat: ' + oldsubcategory + ' to ' + newsubcategory );
-        res.send(200);
+    db.categories.update({
+        name: category,
+        subcategories: oldsubcategory
+    }, {$set: {"subcategories.$": newsubcategory}}, function (err, docs) {
+        //console.log(category + ' category updated subcat: ' + oldsubcategory + ' to ' + newsubcategory);
+        if (err) {
+            logger.error('Can\'t UPDATE subcategory ' + oldsubcategory + ' to ' + newsubcategory + ' in category ' + category + '. Error: ' + err);
+            res.json([]);
+        } else {
+            logger.info('UPDATE subcategory ' + oldsubcategory + ' to ' + newsubcategory + ' in category ' + category + '.');
+            res.send(200);
+        }
     });
     //db.categories.find({name: category}, function (err, docs) {
     //    res.json(docs);
@@ -166,7 +217,7 @@ app.post('/api/authenticate', function (req, res) {
 app.post('/api/users', function (req, res) {
     req.on('data', function (data) {
         var user = JSON.parse(data);
-        console.log(user);
+        //console.log(user);
         if (user.username === null || user.username.length === 0 || user.username === 'undefined') {
             res.status(403).send('Username required !');
         } else {
