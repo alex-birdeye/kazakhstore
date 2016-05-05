@@ -7,6 +7,7 @@ var app = angular.module('app', [
     'ngRoute',
     'ngResource',
     'categoriesController',
+    'productsController',
     'subCategoriesController',
     'appDirectives',
     'appServices',
@@ -33,6 +34,10 @@ app.config(['$routeProvider',
             when('/categories', {
                 templateUrl: 'partials/categories.html',
                 controller: 'CategoriesCtrl'
+            })
+            .when('/products', {
+                templateUrl: 'partials/products.html',
+                controller: 'ProductsCtrl'
             })
             .when('/categories/:catorsubcat/', {
                 templateUrl: 'partials/categories.html',

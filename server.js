@@ -2,7 +2,7 @@ var express = require('express');
 var app = express();
 var mongojs = require('mongojs');
 //var db = mongojs('kazakhstore', ['clientM8Bid', 'extendedClients', 'countries', 'users', 'keywords', 'androclients', 'applications', 'statistics', 'statisticsAndro']);
-var db = mongojs('kazakhstore', ['categories']);
+var db = mongojs('kazakhstore', ['categories', 'products']);
 var winston = require('winston');
 var logger = new (winston.Logger)({
     transports: [
@@ -169,6 +169,17 @@ app.put('/subcategories/:category/:oldsubcategory/:newsubcategory', function (re
     //});
 });
 
+app.get('/products', function (req, res) {
+    db.products.find(function (err, docs) {
+        if (err) {
+            logger.error('Can\'t GET /products. Error: ' + err);
+            res.json([]);
+        } else {
+            res.json(docs);
+        }
+    });
+});
+
 app.get('/api/users', function (req, res) {
     db.users.find(function (err, docs) {
         res.json(docs);
@@ -237,4 +248,9 @@ app.post('/api/users', function (req, res) {
 
 
 app.listen(3030);
+app.use(function(err, req, res, next) {
+    // Do logging and user-friendly error message display
+    logger.error(err);
+    res.status(500).send();
+});
 logger.info("Server started on port 3030");
